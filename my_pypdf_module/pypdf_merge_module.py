@@ -1,9 +1,13 @@
 import sys,os
-import pypdf as pp
+try:
+    import pypdf as pp
+except  ModuleNotFoundError as MNFe:
+    print(f"{MNFe}, \npypdfが見つかりませんでした。pip install -r requirements.txt を実行してください。")
 from typing import List
+
 def merge_pdfs(file_list: List[str], output_name: str) -> None:
     """
-    PDFファイルのリストを結合して1つのPDFファイルにします。
+    PDFファイルのリストを結合して1つのPDFファイルにする。
 
     :param file_list: 結合するファイルのパスリスト
     :param output_name: 出力する結合PDFファイルの名前
@@ -21,7 +25,7 @@ def merge_pdfs(file_list: List[str], output_name: str) -> None:
 
 def get_valid_filename() -> str:
     """
-    結合されたPDFの有効なファイル名をユーザーに入力させます。
+    結合されたPDFの有効なファイル名をユーザーに入力させる。
 
     :return: 有効なファイル名
     """
@@ -37,3 +41,18 @@ def get_valid_filename() -> str:
                 return merged_pdf_name
         else:
             return merged_pdf_name
+
+def check_files_count(input_files: list) -> None:
+    """
+    入力されたpdfファイルが2個以上か調べる
+    
+    :param input_files: batからの引数
+    """
+    if len(input_files) <= 2:
+        print("エラー: 結合には少なくとも2つのファイルが必要です。")
+        exit(1)
+    
+    for ex in input_files[:4]:
+        if not ex == ".pdf": 
+            print("エラー: pdf以外のファイルが含まれています。")
+            exit(1)
