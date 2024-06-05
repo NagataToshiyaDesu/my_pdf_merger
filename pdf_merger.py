@@ -3,7 +3,7 @@ from my_pypdf_module import pypdf_merge_module as pmm
 
 def main() -> None:
     # 結合するPDFファイルが少なくとも2つあることを確認
-    pmm.check_files_count(sys.argv)
+    pmm.check_pdf_files(sys.argv)
 
     # コマンドライン引数からPDFファイルのパスを取得
     file_list = sys.argv[1:]

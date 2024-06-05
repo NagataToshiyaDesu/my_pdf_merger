@@ -42,9 +42,10 @@ def get_valid_filename() -> str:
         else:
             return merged_pdf_name
 
-def check_files_count(input_files: list) -> None:
+def check_pdf_files(input_files: list) -> None:
     """
-    入力されたpdfファイルが2個以上か調べる
+    入力された引数がpdfのファイルパスであることと2個以上であることを確認する
+    異なる入力の場合プログラムを終了する
     
     :param input_files: batからの引数
     """
@@ -52,7 +53,8 @@ def check_files_count(input_files: list) -> None:
         print("エラー: 結合には少なくとも2つのファイルが必要です。")
         exit(1)
     
-    for ex in input_files[:4]:
-        if not ex == ".pdf": 
+    for ex in input_files[1:]:
+        print(f"in if stmt{ex}")
+        if not str(ex).lower().endswith(".pdf"):
             print("エラー: pdf以外のファイルが含まれています。")
             exit(1)
